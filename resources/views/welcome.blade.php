@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <title>RPL Task Manager - Manajemen Tugas & Proyek RPL</title>
+    <title>RPL Task Manager v2- Manajemen Tugas & Proyek RPL</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
