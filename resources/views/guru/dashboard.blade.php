@@ -197,7 +197,7 @@
                     <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
                 </svg>
             </div>
-            <div class="stat-label">Total Tugas</div>
+            <div class="stat-label">Total Tugas siswa</div>
             <div class="stat-value">{{ $totalTask }}</div>
             <div class="stat-desc">Tugas yang sudah dibuat</div>
         </div>
