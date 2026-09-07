@@ -16,13 +16,13 @@ class AdminSeeder extends Seeder
         User::firstOrCreate(
 
             [
-                'email' => 'admintaskmanagement@gmail.com'
+                'email' => 'zulfikri@gmail.com'
             ],
 
             [
                 'name' => 'Administrator',
 
-                'password' => Hash::make('RTM@admin123!'),
+                'password' => Hash::make('zulzulzul'),
 
                 'role' => 'admin',
 
