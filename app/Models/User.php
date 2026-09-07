@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Task;
 use App\Models\TaskSubmission;
-use App\Models\SchoolClass;
 
 class User extends Authenticatable
 {
@@ -29,7 +28,6 @@ class User extends Authenticatable
         'photo',
         'status',
 
-        'class_id',
         'class',
         'attendance_number',
 
@@ -70,9 +68,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(TaskSubmission::class, 'student_id');
     }
-
-    public function schoolClass()
-{
-    return $this->belongsTo(SchoolClass::class, 'class_id');
-}
 }

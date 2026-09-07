@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Guru;
 
-use App\Models\SchoolClass;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class StudentController extends Controller
 {
     public function index()
     {
-        $classes = SchoolClass::with([
-            'students'
-        ])->get();
+        $students = User::where('role', 'siswa')
+            ->latest()
+            ->get();
 
         return view(
             'guru.students.index',
-            compact('classes')
+            compact('students')
         );
     }
 }

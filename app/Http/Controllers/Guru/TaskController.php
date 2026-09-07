@@ -6,7 +6,6 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\SchoolClass;
 
 class TaskController extends Controller
 {
@@ -24,9 +23,7 @@ class TaskController extends Controller
     // form create
     public function create()
     {
-        $classes = SchoolClass::all();
-
-        return view('guru.tasks.create', compact('classes'));
+        return view('guru.tasks.create');
     }
 
     // simpan tugas
@@ -35,10 +32,9 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            
+            'class_target' => 'required',
             'deadline' => 'required|date',
-            'attachment' => 'nullable|file|max:2048',
-            'class_id' => 'required|exists:school_classes,id',
+            'attachment' => 'nullable|file|max:2048'
         ]);
 
         $attachment = null;
@@ -55,11 +51,10 @@ class TaskController extends Controller
 
             'title' => $request->title,
             'description' => $request->description,
+            'class_target' => $request->class_target,
             'deadline' => $request->deadline,
 
             'attachment' => $attachment,
-
-            'class_id' => $request->class_id,
         ]);
 
         return redirect('/guru/tasks')
@@ -89,7 +84,7 @@ class TaskController extends Controller
         $task->update([
             'title' => $request->title,
             'description' => $request->description,
-            
+            'class_target' => $request->class_target,
             'deadline' => $request->deadline,
         ]);
 

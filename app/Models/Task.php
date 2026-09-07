@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TaskSubmission;
-use App\Models\SchoolClass;
 
 class Task extends Model
 {
@@ -12,9 +11,9 @@ class Task extends Model
         'teacher_id',
         'title',
         'description',
+        'class_target',
         'deadline',
         'attachment',
-        'class_id',
     ];
 
     // relasi guru
@@ -26,10 +25,5 @@ class Task extends Model
     public function submissions()
     {
         return $this->hasMany(TaskSubmission::class);
-    }
-
-    public function schoolClass()
-    {
-        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 }

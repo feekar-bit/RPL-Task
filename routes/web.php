@@ -16,8 +16,6 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\GuruApprovalController;
 use App\Http\Controllers\Guru\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
-use App\Http\Controllers\Admin\AdminStudentController;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -205,14 +203,3 @@ Route::get('/guru/tasks/history',
 Route::get('/admin/teachers',
     [TeacherController::class, 'index'])
     ->middleware('role:admin');
-
-
-Route::middleware(['role:admin'])->prefix('admin')->group(function () {
-
-    Route::get(
-        '/students',
-        [AdminStudentController::class, 'index']
-    )->name('admin.students.index');
-
-});
-

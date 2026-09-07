@@ -275,7 +275,7 @@
             </div>
             <div class="info-row">
                 <span class="info-row-key">Kelas</span>
-                <span class="info-row-val">{{ Auth::user()->schoolClass->name ?? '-' }}</span>
+                <span class="info-row-val">{{ Auth::user()->class ?? '-' }}</span>
             </div>
             <div class="info-row">
                 <span class="info-row-key">No. Absen</span>
