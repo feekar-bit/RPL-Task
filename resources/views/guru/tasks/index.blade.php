@@ -331,9 +331,7 @@
 
                         {{-- Kelas --}}
                         <td>
-                            <span class="class-badge">
-                                {{ $task->schoolClass->name ?? '-' }}
-                            </span>
+                            <span class="class-badge">{{ $task->class_target }}</span>
                         </td>
 
                         {{-- Deadline --}}

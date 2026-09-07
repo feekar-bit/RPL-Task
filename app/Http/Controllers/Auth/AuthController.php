@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\SchoolClass;
 
 class AuthController extends Controller
 {
@@ -74,12 +73,7 @@ class AuthController extends Controller
 
     public function registerSiswa()
     {
-        $classes = SchoolClass::all();
-
-        return view(
-            'auth.register-siswa',
-            compact('classes')
-        );
+        return view('auth.register-siswa');
     }
 
     public function registerSiswaProcess(Request $request)
@@ -87,7 +81,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'class_id' => 'required',
+            'class' => 'required',
             'attendance_number' => 'required',
             'password' => 'required|min:6'
         ]);
@@ -96,7 +90,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
 
-            'class_id' => $request->class_id,
+            'class' => $request->class,
             'attendance_number' => $request->attendance_number,
 
             'role' => 'siswa',

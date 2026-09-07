@@ -276,44 +276,6 @@
             margin: 1.2rem 0;
         }
 
-        /* ── Custom Select Dropdown ── */
-        select.field-input {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23676f9d' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"),
-                linear-gradient(135deg, rgba(103,111,157,0.06) 0%, rgba(45,50,80,0.06) 100%);
-            background-repeat: no-repeat, no-repeat;
-            background-position: right 0.85rem center, center;
-            background-size: 1rem, cover;
-            padding-right: 2.5rem;
-            cursor: pointer;
-        }
-        select.field-input:focus {
-            background-image:
-                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f9b17a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"),
-                linear-gradient(135deg, rgba(249,177,122,0.05) 0%, rgba(45,50,80,0.05) 100%);
-            background-repeat: no-repeat, no-repeat;
-            background-position: right 0.85rem center, center;
-            background-size: 1rem, cover;
-        }
-        select.field-input option {
-            background-color: #2d3250;
-            color: var(--white);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.865rem;
-            padding: 0.5rem 0.75rem;
-        }
-        select.field-input option:first-child {
-            color: rgba(255,255,255,0.35);
-        }
-        select.field-input option:hover,
-        select.field-input option:checked {
-            background-color: #424769;
-            color: var(--accent);
-        }
-
         /* ── Responsive ── */
         @media (max-width: 767px) {
             .auth-card { flex-direction: column; }
@@ -410,40 +372,10 @@
 
                         {{-- KELAS --}}
                         <div class="field-group">
-
-                            <label class="field-label">
-
-                                Kelas
-
-                            </label>
-
-                            <select name="class_id"
-                                class="field-input"
-                                required>
-
-                                <option value="">
-
-                                    -- Pilih Kelas --
-
-                                </option>
-
-                                @php
-                                    /** @var \Illuminate\Database\Eloquent\Collection $classes */
-                                @endphp
-                                @foreach($classes as $schoolClass)
-
-                                    <option value="{{ $schoolClass->id }}"
-
-                                        {{ old('class_id') == $schoolClass->id ? 'selected' : '' }}>
-
-                                        {{ $schoolClass->name }}
-
-                                    </option>
-
-                                @endforeach
-
-                            </select>
-
+                            <label class="field-label">Kelas</label>
+                            <input type="text" name="class" class="field-input"
+                                placeholder="Contoh: XI RPL 1"
+                                value="{{ old('class') }}">
                         </div>
 
                         {{-- ABSEN --}}

@@ -13,22 +13,14 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
+        User::create([
+            'name' => 'Administrator',
+            'email' => 'admintaskmanagement@gmail.com',
+            'password' => Hash::make('RTM@admin123!'),
 
-            [
-                'email' => 'zulfikri@gmail.com'
-            ],
+            'role' => 'admin',
 
-            [
-                'name' => 'Administrator',
-
-                'password' => Hash::make('zulzulzul'),
-
-                'role' => 'admin',
-
-                'is_approved' => true,
-            ]
-
-        );
+            'is_approved' => true,
+        ]);
     }
 }

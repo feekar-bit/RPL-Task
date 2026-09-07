@@ -6,7 +6,6 @@ use App\Models\Task;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-
 class SiswaTaskController extends Controller
 {
     // daftar tugas siswa
@@ -14,12 +13,9 @@ class SiswaTaskController extends Controller
     {
         $studentClass = Auth::user()->class;
 
-        $tasks = Task::where(
-        'class_id',
-        Auth::user()->class_id
-    )
-    ->latest()
-    ->get();
+        $tasks = Task::where('class_target', $studentClass)
+            ->latest()
+            ->get();
 
         return view('siswa.tasks.index', compact('tasks'));
     }
