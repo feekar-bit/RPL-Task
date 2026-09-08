@@ -9,9 +9,9 @@ class Task extends Model
 {
     protected $fillable = [
         'teacher_id',
+        'class_id',
         'title',
         'description',
-        'class_target',
         'deadline',
         'attachment',
     ];
@@ -20,6 +20,12 @@ class Task extends Model
     public function teacher()
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    // relasi kelas
+    public function schoolClass()
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id');
     }
 
     public function submissions()

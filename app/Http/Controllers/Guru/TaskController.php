@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Models\Task;
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('teacher_id', Auth::id())
             ->where('deadline', '>', now())
+            ->with('schoolClass')
             ->latest()
             ->get();
 
@@ -23,7 +25,9 @@ class TaskController extends Controller
     // form create
     public function create()
     {
-        return view('guru.tasks.create');
+        $classes = SchoolClass::all();
+
+        return view('guru.tasks.create', compact('classes'));
     }
 
     // simpan tugas
@@ -32,16 +36,20 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'class_target' => 'required',
+            'class_id' => 'required',
             'deadline' => 'required|date',
             'attachment' => 'nullable|file|max:2048'
         ]);
+
+        $classId = $request->class_id;
+        if (!is_numeric($classId)) {
+            $classId = SchoolClass::where('name', $classId)->value('id') ?? $classId;
+        }
 
         $attachment = null;
 
         // upload file
         if ($request->hasFile('attachment')) {
-
             $attachment = $request->file('attachment')
                 ->store('task_attachments', 'public');
         }
@@ -51,7 +59,7 @@ class TaskController extends Controller
 
             'title' => $request->title,
             'description' => $request->description,
-            'class_target' => $request->class_target,
+            'class_id' => $classId,
             'deadline' => $request->deadline,
 
             'attachment' => $attachment,
@@ -64,9 +72,10 @@ class TaskController extends Controller
     // form edit
     public function edit(int $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::with('schoolClass')->findOrFail($id);
+        $classes = SchoolClass::all();
 
-        return view('guru.tasks.edit', compact('task'));
+        return view('guru.tasks.edit', compact('task', 'classes'));
     }
 
     // update
@@ -77,14 +86,19 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'class_target' => 'required',
+            'class_id' => 'required',
             'deadline' => 'required|date',
         ]);
+
+        $classId = $request->class_id;
+        if (!is_numeric($classId)) {
+            $classId = SchoolClass::where('name', $classId)->value('id') ?? $classId;
+        }
 
         $task->update([
             'title' => $request->title,
             'description' => $request->description,
-            'class_target' => $request->class_target,
+            'class_id' => $classId,
             'deadline' => $request->deadline,
         ]);
 
@@ -107,6 +121,7 @@ class TaskController extends Controller
     {
         $tasks = Task::where('teacher_id', Auth::id())
             ->where('deadline', '<', now())
+            ->with('schoolClass')
             ->latest()
             ->get();
 

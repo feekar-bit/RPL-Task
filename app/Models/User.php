@@ -29,12 +29,18 @@ class User extends Authenticatable
         'status',
 
         'class',
+        'class_id',
         'attendance_number',
 
         'teacher_id',
 
         'is_approved',
     ];
+
+    public function schoolClass()
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id');
+    }
 
     public function tasks()
     {

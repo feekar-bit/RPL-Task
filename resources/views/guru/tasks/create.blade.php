@@ -148,6 +148,10 @@
         transition: border-color 0.22s, background 0.22s, box-shadow 0.22s;
         -webkit-appearance: none;
     }
+    .field-input option {
+        background-color: #2d3250;
+        color: #ffffff;
+    }
     .field-textarea { resize: vertical; min-height: 110px; line-height: 1.65; }
     .field-input::placeholder,
     .field-textarea::placeholder { color: rgba(255,255,255,0.18); }
@@ -365,9 +369,16 @@
                     {{-- KELAS --}}
                     <div class="field-group">
                         <label class="field-label">Target Kelas</label>
-                        <input type="text" name="class_target" class="field-input"
-                               placeholder="Contoh: XI RPL 1"
-                               value="{{ old('class_target') }}">
+                        <select name="class_id" class="field-input" required>
+                            <option value="" disabled {{ old('class_id') ? '' : 'selected' }}>Pilih Target Kelas</option>
+                            @if(isset($classes) && count($classes) > 0)
+                                @foreach($classes as $c)
+                                    <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
+                                        {{ $c->name }}
+                                    </option>
+                                @endforeach
+                            @endif
+                        </select>
                     </div>
 
                     {{-- DEADLINE --}}

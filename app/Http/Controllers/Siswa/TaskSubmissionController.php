@@ -13,7 +13,7 @@ class TaskSubmissionController extends Controller
     // form submit
     public function create(int $taskId)
     {
-        $task = Task::findOrFail($taskId);
+        $task = Task::with(['teacher', 'schoolClass'])->findOrFail($taskId);
 
         $submission = TaskSubmission::where('task_id', $taskId)
             ->where('student_id', Auth::id())

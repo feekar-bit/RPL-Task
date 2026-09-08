@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Siswa;
 
 use App\Models\Task;
+use App\Models\SchoolClass;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,9 +12,16 @@ class SiswaTaskController extends Controller
     // daftar tugas siswa
     public function index()
     {
-        $studentClass = Auth::user()->class;
+        $user = Auth::user();
 
-        $tasks = Task::where('class_target', $studentClass)
+        $classIds = array_filter([
+            $user->class_id,
+            is_numeric($user->class) ? (int)$user->class : null,
+            $user->class ? SchoolClass::where('name', $user->class)->value('id') : null
+        ]);
+
+        $tasks = Task::whereIn('class_id', $classIds)
+            ->with(['teacher', 'schoolClass'])
             ->latest()
             ->get();
 
@@ -23,7 +31,7 @@ class SiswaTaskController extends Controller
     // detail tugas
     public function show(int $id)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::with(['teacher', 'schoolClass'])->findOrFail($id);
 
         return view('siswa.tasks.show', compact('task'));
     }

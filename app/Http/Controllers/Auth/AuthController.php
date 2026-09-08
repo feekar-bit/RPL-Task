@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,9 @@ class AuthController extends Controller
 
     public function registerSiswa()
     {
-        return view('auth.register-siswa');
+        $classes = SchoolClass::all();
+
+        return view('auth.register-siswa', compact('classes'));
     }
 
     public function registerSiswaProcess(Request $request)
@@ -81,16 +84,38 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'class' => 'required',
+            'class_id' => 'nullable',
+            'class' => 'nullable',
             'attendance_number' => 'required',
             'password' => 'required|min:6'
         ]);
+
+        $classId = $request->class_id;
+        $classInput = $request->class;
+
+        if ($classId) {
+            $schoolClass = SchoolClass::find($classId);
+            $className = $schoolClass ? $schoolClass->name : $classId;
+        } elseif ($classInput) {
+            if (is_numeric($classInput)) {
+                $classId = (int)$classInput;
+                $schoolClass = SchoolClass::find($classId);
+                $className = $schoolClass ? $schoolClass->name : $classInput;
+            } else {
+                $schoolClass = SchoolClass::where('name', $classInput)->first();
+                $classId = $schoolClass ? $schoolClass->id : null;
+                $className = $classInput;
+            }
+        } else {
+            return back()->withErrors(['class_id' => 'Kelas harus dipilih.'])->withInput();
+        }
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
 
-            'class' => $request->class,
+            'class' => $className,
+            'class_id' => $classId,
             'attendance_number' => $request->attendance_number,
 
             'role' => 'siswa',

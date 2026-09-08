@@ -259,12 +259,12 @@
                 <div class="form-sep">Deskripsi Tugas</div>
                 <div class="task-desc">{{ $task->description }}</div>
 
-                <div class="card-divider"></div>
+                <!-- <div class="card-divider"></div> -->
 
                 {{-- Actions --}}
                 <div class="action-group">
 
-                    @if($task->attachment)
+                    <!-- @if($task->attachment)
                         <a href="{{ asset('storage/' . $task->attachment) }}"
                            target="_blank" class="btn-download">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -284,7 +284,7 @@
                             <path d="M22 2L15 22 11 13 2 9l20-7z"/>
                         </svg>
                         Progress & Submit Tugas
-                    </a>
+                    </a> -->
 
                 </div>
 
@@ -304,7 +304,7 @@
             </div>
             <div class="info-row">
                 <span class="info-row-key">Target Kelas</span>
-                <span class="info-row-val">{{ $task->class_target }}</span>
+                <span class="info-row-val">{{ $task->schoolClass?->name ?? ($task->class_id ?? '-') }}</span>
             </div>
             <div class="info-row">
                 <span class="info-row-key">Deadline</span>

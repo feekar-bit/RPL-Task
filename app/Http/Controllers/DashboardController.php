@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\SchoolClass;
 use App\Models\TaskSubmission;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,12 +74,16 @@ class DashboardController extends Controller
     public function siswa()
     {
         $studentId = Auth::id();
+        $user = Auth::user();
 
-        // total tugas kelas siswa
-        $studentClass = Auth::user()->class;
+        // total tugas kelas siswa (filter by class_id & class)
+        $classIds = array_filter([
+            $user->class_id,
+            is_numeric($user->class) ? (int)$user->class : null,
+            $user->class ? SchoolClass::where('name', $user->class)->value('id') : null
+        ]);
 
-        $totalTugas = Task::where('class_target', $studentClass)
-            ->count();
+        $totalTugas = Task::whereIn('class_id', $classIds)->count();
 
         // tugas selesai
         $tugasSelesai = TaskSubmission::where('student_id', $studentId)

@@ -229,6 +229,10 @@
             transition: border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
             -webkit-appearance: none;
         }
+        .field-input option {
+            background-color: #2d3250;
+            color: #ffffff;
+        }
         .field-input::placeholder { color: rgba(255,255,255,0.2); }
         .field-input:focus {
             border-color: var(--accent);
@@ -373,9 +377,16 @@
                         {{-- KELAS --}}
                         <div class="field-group">
                             <label class="field-label">Kelas</label>
-                            <input type="text" name="class" class="field-input"
-                                placeholder="Contoh: XI RPL 1"
-                                value="{{ old('class') }}">
+                            <select name="class_id" class="field-input" required>
+                                <option value="" disabled {{ old('class_id') ? '' : 'selected' }}>Pilih Kelas</option>
+                                @if(isset($classes) && count($classes) > 0)
+                                    @foreach($classes as $c)
+                                        <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
+                                            {{ $c->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
                         </div>
 
                         {{-- ABSEN --}}
