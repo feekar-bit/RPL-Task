@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\GuruApprovalController;
 use App\Http\Controllers\Guru\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\SchoolClassController;
+use App\Http\Controllers\Admin\AdminStudentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -203,3 +205,37 @@ Route::get('/guru/tasks/history',
 Route::get('/admin/teachers',
     [TeacherController::class, 'index'])
     ->middleware('role:admin');
+
+
+// ================= MANAJEMEN KELAS RPL (ADMIN) =================
+
+Route::get('/admin/classes', [SchoolClassController::class, 'index'])
+    ->middleware('role:admin')
+    ->name('admin.classes.index');
+
+Route::post('/admin/classes', [SchoolClassController::class, 'store'])
+    ->middleware('role:admin')
+    ->name('admin.classes.store');
+
+Route::post('/admin/classes/generate-rombel', [SchoolClassController::class, 'generateRombel'])
+    ->middleware('role:admin')
+    ->name('admin.classes.generate');
+
+Route::put('/admin/classes/{id}', [SchoolClassController::class, 'update'])
+    ->middleware('role:admin')
+    ->name('admin.classes.update');
+
+Route::delete('/admin/classes/{id}', [SchoolClassController::class, 'destroy'])
+    ->middleware('role:admin')
+    ->name('admin.classes.destroy');
+
+Route::get('/admin/classes/{id}/students', [SchoolClassController::class, 'students'])
+    ->middleware('role:admin')
+    ->name('admin.classes.students');
+
+
+// ================= DATA SISWA (ADMIN) =================
+
+Route::get('/admin/students', [AdminStudentController::class, 'index'])
+    ->middleware('role:admin')
+    ->name('admin.students.index');

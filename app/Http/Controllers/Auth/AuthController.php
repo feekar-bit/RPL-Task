@@ -74,7 +74,12 @@ class AuthController extends Controller
 
     public function registerSiswa()
     {
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::where('status', 'active')
+            ->withCount('students')
+            ->orderByRaw("CASE grade WHEN 'X' THEN 1 WHEN 'XI' THEN 2 WHEN 'XII' THEN 3 ELSE 4 END")
+            ->orderBy('rombel', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('auth.register-siswa', compact('classes'));
     }
@@ -92,6 +97,7 @@ class AuthController extends Controller
 
         $classId = $request->class_id;
         $classInput = $request->class;
+        $schoolClass = null;
 
         if ($classId) {
             $schoolClass = SchoolClass::find($classId);
@@ -108,6 +114,19 @@ class AuthController extends Controller
             }
         } else {
             return back()->withErrors(['class_id' => 'Kelas harus dipilih.'])->withInput();
+        }
+
+        // Validasi Status & Kuota Kelas
+        if ($schoolClass) {
+            if ($schoolClass->status !== 'active') {
+                return back()->withErrors(['class_id' => "Kelas {$schoolClass->name} sedang tidak aktif."])->withInput();
+            }
+
+            if ($schoolClass->is_full) {
+                return back()->withErrors([
+                    'class_id' => "Kelas {$schoolClass->name} sudah mencapai batas kapasitas maksimal ({$schoolClass->capacity} siswa). Silakan pilih kelas lain atau hubungi admin."
+                ])->withInput();
+            }
         }
 
         User::create([

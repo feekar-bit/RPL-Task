@@ -101,7 +101,7 @@
 <div class="row g-3 mb-3">
 
     {{-- Total Guru --}}
-    <div class="col-12 col-md-4 anim-fade-up delay-1">
+    <div class="col-6 col-lg-3 anim-fade-up delay-1">
         <div class="stat-card">
             <div class="stat-icon-wrap icon-slate">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -119,7 +119,7 @@
     </div>
 
     {{-- Total Siswa --}}
-    <div class="col-12 col-md-4 anim-fade-up delay-2">
+    <div class="col-6 col-lg-3 anim-fade-up delay-2">
         <div class="stat-card">
             <div class="stat-icon-wrap icon-accent">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -136,8 +136,26 @@
         </div>
     </div>
 
+    {{-- Total Kelas RPL --}}
+    <div class="col-6 col-lg-3 anim-fade-up delay-3">
+        <div class="stat-card">
+            <div class="stat-icon-wrap icon-accent">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round" class="color-accent">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    <polyline points="10 6 14 6 12 11"/>
+                </svg>
+            </div>
+            <div class="stat-label">Kelas RPL</div>
+            <div class="stat-value">{{ $totalKelas }}</div>
+            <div class="stat-desc">Kuota: {{ $totalKapasitas }} Siswa</div>
+            <div class="stat-accent-bar bar-accent"></div>
+        </div>
+    </div>
+
     {{-- Total Tugas --}}
-    <div class="col-12 col-md-4 anim-fade-up delay-3">
+    <div class="col-6 col-lg-3 anim-fade-up delay-4">
         <div class="stat-card">
             <div class="stat-icon-wrap icon-red">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -157,7 +175,22 @@
 
 {{-- Quick actions --}}
 <div class="row g-3">
-    <div class="col-12 col-md-6 anim-fade-up delay-4">
+    <div class="col-12 col-md-4 anim-fade-up delay-4">
+        <div class="quick-card">
+            <div>
+                <div class="quick-card-label">Akademik</div>
+                <div class="quick-card-title">Pusat Kendali Kelas RPL</div>
+                <div class="quick-card-sub">Atur struktur rombel kelas X, XI, XII dan batas kuota maksimal siswa per kelas.</div>
+            </div>
+            <a href="/admin/classes" class="btn-quick">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                Kelola Kelas RPL
+            </a>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 anim-fade-up delay-4">
         <div class="quick-card">
             <div>
                 <div class="quick-card-label">Manajemen</div>
@@ -172,7 +205,7 @@
             </a>
         </div>
     </div>
-    <div class="col-12 col-md-6 anim-fade-up delay-5">
+    <div class="col-12 col-md-4 anim-fade-up delay-5">
         <div class="quick-card">
             <div>
                 <div class="quick-card-label">Akun</div>

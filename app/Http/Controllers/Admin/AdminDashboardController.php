@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Task;
+use App\Models\SchoolClass;
 
 class AdminDashboardController extends Controller
 {
@@ -16,10 +17,15 @@ class AdminDashboardController extends Controller
 
         $totalTask = Task::count();
 
+        $totalKelas = SchoolClass::count();
+        $totalKapasitas = SchoolClass::where('status', 'active')->sum('capacity');
+
         return view('admin.dashboard', compact(
             'totalGuru',
             'totalSiswa',
-            'totalTask'
+            'totalTask',
+            'totalKelas',
+            'totalKapasitas'
         ));
     }
 }

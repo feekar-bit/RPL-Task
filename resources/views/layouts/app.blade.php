@@ -454,7 +454,19 @@
                 </a>
 
                 
+            <li class="sb-nav-item">
+                <a href="/admin/classes"
+                   class="sb-nav-link {{ request()->is('admin/classes*') ? 'active' : '' }}"
+                   data-tooltip="Kelas RPL">
+                    <svg class="sb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <polyline points="10 6 14 6 12 11"/>
+                    </svg>
+                    <span class="sb-nav-label">Kelas RPL</span>
+                </a>
             </li>
+
             <li class="sb-nav-item">
                 <a href="/admin/teachers"
                    class="sb-nav-link {{ request()->is('admin/teachers*') ? 'active' : '' }}"
@@ -466,6 +478,19 @@
                         <path d="M16 3.13a4 4 0 010 7.75"/>
                     </svg>
                     <span class="sb-nav-label">Data Guru</span>
+                </a>
+            </li>
+
+            <li class="sb-nav-item">
+                <a href="/admin/students"
+                   class="sb-nav-link {{ request()->is('admin/students*') ? 'active' : '' }}"
+                   data-tooltip="Data Siswa">
+                    <svg class="sb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M16 11l2 2 4-4"/>
+                    </svg>
+                    <span class="sb-nav-label">Data Siswa</span>
                 </a>
             </li>
 

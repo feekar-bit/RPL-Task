@@ -25,7 +25,11 @@ class TaskController extends Controller
     // form create
     public function create()
     {
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::where('status', 'active')
+            ->orderByRaw("CASE grade WHEN 'X' THEN 1 WHEN 'XI' THEN 2 WHEN 'XII' THEN 3 ELSE 4 END")
+            ->orderBy('rombel', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('guru.tasks.create', compact('classes'));
     }
@@ -73,7 +77,11 @@ class TaskController extends Controller
     public function edit(int $id)
     {
         $task = Task::with('schoolClass')->findOrFail($id);
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::where('status', 'active')
+            ->orderByRaw("CASE grade WHEN 'X' THEN 1 WHEN 'XI' THEN 2 WHEN 'XII' THEN 3 ELSE 4 END")
+            ->orderBy('rombel', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('guru.tasks.edit', compact('task', 'classes'));
     }

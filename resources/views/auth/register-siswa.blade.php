@@ -381,8 +381,14 @@
                                 <option value="" disabled {{ old('class_id') ? '' : 'selected' }}>Pilih Kelas</option>
                                 @if(isset($classes) && count($classes) > 0)
                                     @foreach($classes as $c)
-                                        <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
-                                            {{ $c->name }}
+                                        @php
+                                            $sCount = $c->students_count ?? $c->students->count();
+                                            $cap = (int)($c->capacity ?? 36);
+                                            $isFull = $sCount >= $cap;
+                                            $sisa = max(0, $cap - $sCount);
+                                        @endphp
+                                        <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }} {{ $isFull ? 'disabled' : '' }}>
+                                            {{ $c->name }} {{ $isFull ? '(Kuota Penuh)' : "— Sisa {$sisa} slot" }}
                                         </option>
                                     @endforeach
                                 @endif
