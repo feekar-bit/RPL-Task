@@ -482,6 +482,19 @@
             </li>
 
             <li class="sb-nav-item">
+                <a href="/admin/subjects"
+                   class="sb-nav-link {{ request()->is('admin/subjects*') ? 'active' : '' }}"
+                   data-tooltip="Penugasan Guru">
+                    <svg class="sb-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        <path d="M9 9h6M9 13h4"/>
+                    </svg>
+                    <span class="sb-nav-label">Penugasan Guru</span>
+                </a>
+            </li>
+
+            <li class="sb-nav-item">
                 <a href="/admin/students"
                    class="sb-nav-link {{ request()->is('admin/students*') ? 'active' : '' }}"
                    data-tooltip="Data Siswa">

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Task;
 use App\Models\TaskSubmission;
+use App\Models\Subject;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,11 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class, 'teacher_id');
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class, 'teacher_id');
     }
 
     /**

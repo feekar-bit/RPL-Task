@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\GuruApprovalController;
 use App\Http\Controllers\Guru\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SchoolClassController;
 use App\Http\Controllers\Admin\AdminStudentController;
 
@@ -205,6 +206,25 @@ Route::get('/guru/tasks/history',
 Route::get('/admin/teachers',
     [TeacherController::class, 'index'])
     ->middleware('role:admin');
+
+
+// ================= PENUGASAN GURU =================
+
+Route::get('/admin/subjects', [SubjectController::class, 'index'])
+    ->middleware('role:admin')
+    ->name('admin.subjects.index');
+
+Route::post('/admin/subjects', [SubjectController::class, 'store'])
+    ->middleware('role:admin')
+    ->name('admin.subjects.store');
+
+Route::put('/admin/subjects/{subject}', [SubjectController::class, 'update'])
+    ->middleware('role:admin')
+    ->name('admin.subjects.update');
+
+Route::delete('/admin/subjects/{subject}', [SubjectController::class, 'destroy'])
+    ->middleware('role:admin')
+    ->name('admin.subjects.destroy');
 
 
 // ================= MANAJEMEN KELAS RPL (ADMIN) =================
